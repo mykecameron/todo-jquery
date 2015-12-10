@@ -61,9 +61,6 @@ jQuery(function ($) {
       $('#footer').on('click', '#clear-completed', this.destroyCompleted.bind(this));
       $('#todo-list')
         .on('change', '.toggle', this.toggle.bind(this))
-        .on('dblclick', 'label', this.edit.bind(this))
-        .on('keyup', '.edit', this.editKeyup.bind(this))
-        .on('focusout', '.edit', this.update.bind(this))
         .on('click', '.destroy', this.destroy.bind(this));
     },
 
@@ -167,21 +164,6 @@ jQuery(function ($) {
       var i = this.indexFromEl(e.target);
       this.todos[i].completed = !this.todos[i].completed;
       this.render();
-    },
-
-    edit: function (e) {
-      var $input = $(e.target).closest('li').addClass('editing').find('.edit');
-      $input.val($input.val()).focus();
-    },
-
-    editKeyup: function (e) {
-      if (e.which === ENTER_KEY) {
-        e.target.blur();
-      }
-
-      if (e.which === ESCAPE_KEY) {
-        $(e.target).data('abort', true).blur();
-      }
     },
 
     update: function (e) {
